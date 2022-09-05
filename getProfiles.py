@@ -5,7 +5,8 @@ import requests
 import json
 import xlsxwriter
 
-projectName = "CI-SIS"
+# projectName = "CI-SIS"
+projectName = "FrenchProfiledFHIRAr"
 
 workbook = xlsxwriter.Workbook(projectName + '.xlsx')
 
@@ -16,52 +17,64 @@ workbook = xlsxwriter.Workbook(projectName + '.xlsx')
 worksheet = workbook.add_worksheet("StructureDefinition")
 
 x = requests.get('https://fhir.simplifier.net/' + projectName + '/StructureDefinition?_count=1000')
-entries = json.loads(x.text)["entry"]
+# print(x.text)
+json_bundle = json.loads(x.text)
 
-row = 0
-column_incr =0
 
-worksheet.write(0, column_incr, "Name")
-column_incr +=1
-worksheet.write(0, column_incr, "Type")
-column_incr +=1
-worksheet.write(0, column_incr, "Project")
-column_incr +=1
-worksheet.write(0, column_incr, "Version")
-column_incr +=1
-worksheet.write(0, column_incr, "Status")
-column_incr +=1
-worksheet.write(0, column_incr, "Last updated")
-column_incr +=1
-worksheet.write(0, column_incr, "Version id")
+if "entry" not in json_bundle:
+    print("No StructureDefinition found in the project")
+else:
+    entries = json_bundle["entry"]
 
-for entry in entries:
-    row += 1
-    column_incr = 0
-    worksheet.write(row, column_incr, entry["resource"]["name"])
+    row = 0
+    column_incr =0
 
+    worksheet.write(0, column_incr, "id")
     column_incr +=1
-    worksheet.write(row, column_incr, entry["resource"]["type"])
-
+    worksheet.write(0, column_incr, "Name")
     column_incr +=1
-    tmp = entry["resource"]["name"].split('_')
-    if len(tmp) > 1:
-        worksheet.write(row, column_incr, tmp[0])
-
+    worksheet.write(0, column_incr, "Type")
     column_incr +=1
-    if "version" in entry["resource"]:
-        worksheet.write(row, column_incr, entry["resource"]["version"])
-
+    worksheet.write(0, column_incr, "Project")
     column_incr +=1
-    if "status" in entry["resource"]:
-        worksheet.write(row, column_incr, entry["resource"]["status"])
-
+    worksheet.write(0, column_incr, "Version")
     column_incr +=1
-    worksheet.write(row, column_incr, entry["resource"]["meta"]["lastUpdated"])
-
+    worksheet.write(0, column_incr, "Status")
     column_incr +=1
-    if "versionId" in entry["resource"]["meta"]:
-        worksheet.write(row, column_incr, entry["resource"]["meta"]["versionId"])
+    worksheet.write(0, column_incr, "Last updated")
+    column_incr +=1
+    worksheet.write(0, column_incr, "Version id")
+
+    for entry in entries:
+        row += 1
+        column_incr = 0
+        worksheet.write(row, column_incr, entry["resource"]["id"])
+
+        column_incr +=1
+        worksheet.write(row, column_incr, entry["resource"]["name"])
+
+        column_incr +=1
+        worksheet.write(row, column_incr, entry["resource"]["type"])
+
+        column_incr +=1
+        tmp = entry["resource"]["name"].split('_')
+        if len(tmp) > 1:
+            worksheet.write(row, column_incr, tmp[0])
+
+        column_incr +=1
+        if "version" in entry["resource"]:
+            worksheet.write(row, column_incr, entry["resource"]["version"])
+
+        column_incr +=1
+        if "status" in entry["resource"]:
+            worksheet.write(row, column_incr, entry["resource"]["status"])
+
+        column_incr +=1
+        worksheet.write(row, column_incr, entry["resource"]["meta"]["lastUpdated"])
+
+        column_incr +=1
+        if "versionId" in entry["resource"]["meta"]:
+            worksheet.write(row, column_incr, entry["resource"]["meta"]["versionId"])
 
 #########################
 ## Get SearchParameter ##
@@ -70,49 +83,55 @@ worksheet = workbook.add_worksheet("SearchParameter")
 
 x = requests.get('https://fhir.simplifier.net/' + projectName + '/SearchParameter?_count=1000')
 
-entries = json.loads(x.text)["entry"]
+json_bundle = json.loads(x.text)
+if "entry" not in json_bundle:
+    print("No SearchParameter found in the project")
+else:
+    entries = json_bundle["entry"]
 
-
-row = 0
-column_incr =0
-
-
-worksheet.write(0, column_incr, "Name")
-column_incr +=1
-worksheet.write(0, column_incr, "Project")
-column_incr +=1
-worksheet.write(0, column_incr, "Version")
-column_incr +=1
-worksheet.write(0, column_incr, "Status")
-column_incr +=1
-worksheet.write(0, column_incr, "Last updated")
-column_incr +=1
-worksheet.write(0, column_incr, "Version id")
-
-for entry in entries:
-    row += 1
+    row = 0
     column_incr =0
 
-    worksheet.write(row, column_incr, entry["resource"]["name"])
-
+    worksheet.write(0, column_incr, "id")
     column_incr +=1
-    tmp = entry["resource"]["name"].split('_')
-    if len(tmp) > 1:
-        worksheet.write(row, column_incr, tmp[0])
-
+    worksheet.write(0, column_incr, "Name")
     column_incr +=1
-    if "version" in entry["resource"]:
-        worksheet.write(row, column_incr, entry["resource"]["version"])
-
+    worksheet.write(0, column_incr, "Project")
     column_incr +=1
-    if "status" in entry["resource"]:
-        worksheet.write(row, column_incr, entry["resource"]["status"])
-
+    worksheet.write(0, column_incr, "Version")
     column_incr +=1
-    worksheet.write(row, column_incr, entry["resource"]["meta"]["lastUpdated"])
-
+    worksheet.write(0, column_incr, "Status")
     column_incr +=1
-    if "versionId" in entry["resource"]["meta"]:
-        worksheet.write(row, column_incr, entry["resource"]["meta"]["versionId"])
+    worksheet.write(0, column_incr, "Last updated")
+    column_incr +=1
+    worksheet.write(0, column_incr, "Version id")
+
+    for entry in entries:
+        row += 1
+        column_incr =0
+
+        worksheet.write(row, column_incr, entry["resource"]["id"])
+
+        worksheet.write(row, column_incr, entry["resource"]["name"])
+
+        column_incr +=1
+        tmp = entry["resource"]["name"].split('_')
+        if len(tmp) > 1:
+            worksheet.write(row, column_incr, tmp[0])
+
+        column_incr +=1
+        if "version" in entry["resource"]:
+            worksheet.write(row, column_incr, entry["resource"]["version"])
+
+        column_incr +=1
+        if "status" in entry["resource"]:
+            worksheet.write(row, column_incr, entry["resource"]["status"])
+
+        column_incr +=1
+        worksheet.write(row, column_incr, entry["resource"]["meta"]["lastUpdated"])
+
+        column_incr +=1
+        if "versionId" in entry["resource"]["meta"]:
+            worksheet.write(row, column_incr, entry["resource"]["meta"]["versionId"])
 
 workbook.close()
