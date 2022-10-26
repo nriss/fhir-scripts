@@ -7,6 +7,7 @@ import xlsxwriter
 
 # projectName = "CI-SIS"
 projectName = "FrenchProfiledFHIRAr"
+# projectName = "modelisationdesstructuresetdesprofessionnels"
 
 workbook = xlsxwriter.Workbook(projectName + '.xlsx')
 
@@ -31,6 +32,8 @@ else:
 
     worksheet.write(0, column_incr, "id")
     column_incr +=1
+    worksheet.write(0, column_incr, "url")
+    column_incr +=1
     worksheet.write(0, column_incr, "Name")
     column_incr +=1
     worksheet.write(0, column_incr, "Type")
@@ -50,6 +53,9 @@ else:
         row += 1
         column_incr = 0
         worksheet.write(row, column_incr, entry["resource"]["id"])
+
+        column_incr +=1
+        worksheet.write(row, column_incr, entry["resource"]["url"])
 
         column_incr +=1
         worksheet.write(row, column_incr, entry["resource"]["name"])
@@ -96,6 +102,10 @@ else:
 
     worksheet.write(0, column_incr, "id")
     column_incr +=1
+
+    worksheet.write(0, column_incr, "url")
+    column_incr +=1
+
     worksheet.write(0, column_incr, "Name")
     column_incr +=1
     if (projectName == "CI-SIS"):
@@ -114,6 +124,9 @@ else:
         column_incr =0
 
         worksheet.write(row, column_incr, entry["resource"]["id"])
+
+        column_incr +=1
+        worksheet.write(row, column_incr, entry["resource"]["url"])
 
         column_incr +=1
         worksheet.write(row, column_incr, entry["resource"]["name"])
@@ -162,6 +175,10 @@ for resourceType in ("ValueSet", "CodeSystem"):
         column_incr +=1
         worksheet.write(0, column_incr, "id")
         column_incr +=1
+
+        worksheet.write(0, column_incr, "url")
+        column_incr +=1
+
         worksheet.write(0, column_incr, "Name")
         column_incr +=1
         if (projectName == "CI-SIS"):
@@ -183,6 +200,9 @@ for resourceType in ("ValueSet", "CodeSystem"):
             
             column_incr +=1
             worksheet.write(row, column_incr, entry["resource"]["id"])
+
+            column_incr +=1
+            worksheet.write(row, column_incr, entry["resource"]["url"])
 
             column_incr +=1
             worksheet.write(row, column_incr, entry["resource"]["name"])
